@@ -1,0 +1,37 @@
+{
+    "resources": [{
+        "name": "events",
+        "actions": []
+    }, {
+        "name": "organisations",
+        "actions": []
+    }],
+    "roles": [{
+        "name": "guest",
+        "actions": [
+            "get"
+        ],
+        "resources": [
+            "events",
+            "organisation"
+        ]
+    }],
+    "users": [{
+            "username": "admin",
+            "attachedRoles": ["admin"]
+        },
+        {
+            "username": "guest",
+            "attachedRoles": ["guest"]
+        },
+        {
+            "username": "interal1",
+            "internal": "true",
+            "accessKey": "123",
+            "secretAccessKey": "12",
+            "attachedRoles": [
+                "guest"
+            ]
+        }
+    ]
+}
