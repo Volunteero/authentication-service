@@ -1,21 +1,16 @@
 module.exports = (req, res, next) => {
 
-    let components = {};
-    let componentNames = ['resource', 'actions'];
-    // For every component get the value from the query string and make it an array
-    componentNames.forEach(componentName => {
-
-        components[componentName] = getComponent(req.query, componentName);
-    });
-    // We only support one resource with many actions
-    components.resource = components.resource.join();
-    req.accessQuery = components;
+    const [_, resource, action] = req.path.split('/');
+    req.accessQuery = {
+        resource,
+        action
+    };
     next();
 }
 
-function getComponent(query = {}, componentName = '') {
+function getComponent(request, componentName = '') {
 
-    let queryComponent = query[componentName];
+    let queryComponent = request.query[componentName];
     if (typeof queryComponent !== 'undefined') {
 
         return queryComponent.split(',');

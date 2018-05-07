@@ -5,33 +5,47 @@
     }, {
         "name": "organisations",
         "actions": []
+    }, {
+        "name": "users",
+        "actions": [
+            "create",
+            "getRoles",
+            "attachRoles",
+            "dettachRoles"
+        ]
+    }, {
+        "name": "roles",
+        "actions": [
+            "create",
+            "getPermissions",
+            "addPermissions",
+            "removePermissions"
+        ]
     }],
     "roles": [{
-        "name": "guest",
+        "name": "roleAdmin",
         "actions": [
-            "get"
+            "create",
+            "getPermissions",
+            "addPermissions",
+            "removePermissions"
         ],
         "resources": [
-            "events",
-            "organisation"
+            "roles"
         ]
     }],
     "users": [{
-            "username": "admin",
-            "attachedRoles": ["admin"]
-        },
-        {
-            "username": "guest",
-            "attachedRoles": ["guest"]
-        },
-        {
-            "username": "interal1",
-            "internal": "true",
-            "accessKey": "123",
-            "secretAccessKey": "12",
-            "attachedRoles": [
-                "guest"
-            ]
-        }
-    ]
+        "username": "admin",
+        "attachedRoles": ["admin"],
+        "accessKey": "root",
+        "secretAccessKey": "password"
+    }, {
+        "username": "interal1",
+        "internal": "true",
+        "accessKey": "123",
+        "secretAccessKey": "12",
+        "attachedRoles": [
+            "roleAdmin"
+        ]
+    }]
 }

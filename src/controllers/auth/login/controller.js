@@ -59,18 +59,13 @@ module.exports.login = async (req, res) => {
 
 	// Password valid - set cookie with token
 	const accessToken = generateAccessToken(user);
-	res.cookie('accessToken', accessToken, {
-		signed: true,
-		// secure: true, // only HTTPS,
-		httpOnly: true,
-		secret: process.env.PRIVATE_KEY,
-	});
 
 	// Also reset login attempts
 	await user.update({ loginAttempts: 0 });
 
 	// Send the response
 	return res.status(200).json({
+		accessToken,
 		success: true
 	});
 };
