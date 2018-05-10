@@ -31,6 +31,24 @@ Output
     allowed: true/false
 }
 ```
+GET **/assumeOrganisationRole** </br>
+```
+Input (In querystring)
+
+accessToken: { 
+    type: 'string',
+    required: true,
+}
+organisationId: {
+    type: 'string',
+    required: true,
+},
+
+Output
+{
+    accessToken: ""
+}
+```
 POST **/register** </br>
 ```
 Input (In body)
@@ -111,6 +129,28 @@ You can create and manage users and roles. </br></br>
 **All of the requests require a set of accessKey and secretAccessKey that are later passed thorugh the query string ``?accessKey=<YOUR_KEY_HERE>&secretAccessKey=<YOUR_SECRET_KEY_HERE>``** </br/>
 
 Everything works with permissions for actions on certain resources. For example, you can create a role called **myRole** that has permissions to **delete** (action) on **organisation:1234** (resource). You can then create a user called **myUser** and attach the **myRole** you just created. That would mean that **myUser** has permission to **delete** **organisation:1234** resource.
+
+POST **/organisations/createRole** </br>
+```
+Input (In body)
+
+organisationId: {
+    type: 'string',
+    required: true,
+},
+username: {
+    type: 'string',
+    required: true,
+},
+
+Output
+{
+    roleName: 'string',
+    username: 'string',
+    allowedActions: ['string'],
+    organisation: 'string',
+}
+```
 
 POST **/users/create** </br>
 ```
