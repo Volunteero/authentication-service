@@ -1,17 +1,32 @@
 const express = require('express');
+const validate = require('express-jsonschema').validate;
+
 const internalAuthMiddleWare = require('../../middleware/internal-request-auth');
 const accessQueryComponentsMiddleWare = require('../../middleware/access-query-components');
 const internalAccessRequestMiddleWare = require('../../middleware/interal-access-request-authorizer');
+
 const usersController = require('./users/controller');
 const rolesController = require('./roles/controller');
-const validate = require('express-jsonschema').validate;
+const organisationsController = require('./organisations/controller');
+
 const createUsersSchema = require('./users/create-users-schema');
+const createOrganiastionRoleSchema = require('./organisations/organisations-create-role-schema');
 const attachRolesToUserSchema = require('./users/attach-roles-to-user-schema');
 const roleResourcesActionsSchema = require('./roles/role-resources-actions-schema');
 const roleNameSchema = require('./roles/role-name-schema');
 
 module.exports = express
 	.Router()
+	.post(
+		'/organisations/createRole',
+		internalAuthMiddleWare,
+		accessQueryComponentsMiddleWare,
+		internalAccessRequestMiddleWare,
+		validate({
+			body: createOrganiastionRoleSchema
+		}),
+		organisationsController.create
+	)
 	.post(
 		'/users/create',
 		internalAuthMiddleWare,

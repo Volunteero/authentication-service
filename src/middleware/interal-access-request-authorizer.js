@@ -1,10 +1,9 @@
 const ErrorResponse = require('../responses/error-response');
-const acl = (require('../utils/get-acl-instance'))();
 
 module.exports = async (req, res, next) => {
 
     // The username and access query are in the request after the 2 middlewares
-    acl.isAllowed(req.user.username, req.accessQuery.resource, req.accessQuery.action, (error, allowed) => {
+    req.app.get('acl').isAllowed(req.user.username, req.accessQuery.resource, req.accessQuery.action, (error, allowed) => {
 
         if (!allowed) {
 

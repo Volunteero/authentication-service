@@ -1,9 +1,6 @@
-const mongoose = require('mongoose');
-const {Acl, MongoDBStore, MemoryStore} = require('@aclify/aclify');
-const mongo = new MongoDBStore(mongoose.connection, {
-    prefix: 'acl_'
-});
-const memory = new MemoryStore();
-const acl = new Acl(memory);
-
-module.exports = () => acl;
+const {
+    Acl,
+    MongoDBStore,
+    MemoryStore
+} = require('@aclify/aclify');
+module.exports = (db) => new Acl(new MongoDBStore(db, 'acl_'));

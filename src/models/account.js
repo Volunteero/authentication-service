@@ -5,4 +5,4 @@ const schema = mongoose.Schema({
 	loginAttempts: { type: Number, default: 0 },
 	loginLockExpiry: Number,
 });
-module.exports = mongoose.model('User', schema);
+module.exports = mongoose.model('Account', schema);

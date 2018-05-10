@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "forever start ./src/server.js | pino-tee warn ./warn-logs > ./all-logs",
+    "start": "node ./src/server.js",
     "dev": "nodemon ./src/server.js",
     "dev:es": "nodemon ./src/server.js | pino-elasticsearch --host 192.168.99.100 --index sepr"
   },
@@ -30,6 +30,7 @@
     "forever": "^0.15.3",
     "jsonwebtoken": "^8.2.0",
     "mocha": "^5.0.5",
+    "mongodb": "^3.0.8",
     "mongoose": "^5.0.8",
     "node-fetch": "^2.1.2",
     "pino-elasticsearch": "^2.2.1",

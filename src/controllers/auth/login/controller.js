@@ -1,24 +1,37 @@
 require('dotenv').config();
-const User = require('../../../models/user');
+const Account = require('../../../models/account');
 const bcrypt = require('bcrypt');
 const generateAccessToken = require('../generate-access-token');
-const { isNumber } = require('util');
+const {
+	isNumber
+} = require('util');
 const ErrorResponse = require('../../../responses/error-response');
 
 module.exports.login = async (req, res) => {
-	const { password, username } = req.body;
+	const {
+		password,
+		username
+	} = req.body;
 
 	// Check if there is such a user
-	const user = await User.findOne({ username });
+	const user = await Account.findOne({
+		username
+	});
 	if (user === null) {
 		// No such user found
 		const errorCode = 'UserNotFound';
-		req.log.info({ errorCode, username });
+		req.log.info({
+			errorCode,
+			username
+		});
 		throw new ErrorResponse(404, errorCode, 'User not found');
 	}
 
 	// Control login attempts
-	const { loginAttempts, loginLockExpiry } = user;
+	const {
+		loginAttempts,
+		loginLockExpiry
+	} = user;
 	let loginAttemptLock = false;
 	// If we have a lock wait until the time is over
 	if (loginLockExpiry > Date.now()) {
@@ -38,7 +51,10 @@ module.exports.login = async (req, res) => {
 	// If there is a lock, show the message
 	if (loginAttemptLock) {
 		const errorCode = 'LoginAttemptsExceeded';
-		req.log.info({ errorCode, username });
+		req.log.info({
+			errorCode,
+			username
+		});
 		throw new ErrorResponse(
 			401,
 			errorCode,
@@ -51,9 +67,14 @@ module.exports.login = async (req, res) => {
 	if (!isPasswordValid) {
 		// Password invalid
 		const errorCode = 'PasswordIncorrect';
-		req.log.info({ errorCode, username });
+		req.log.info({
+			errorCode,
+			username
+		});
 		// When password is incorrect increase login attempts
-		await user.update({ loginAttempts: loginAttempts + 1 });
+		await user.update({
+			loginAttempts: loginAttempts + 1
+		});
 		throw new ErrorResponse(401, errorCode, 'Incorrect password');
 	}
 
@@ -61,7 +82,9 @@ module.exports.login = async (req, res) => {
 	const accessToken = generateAccessToken(user);
 
 	// Also reset login attempts
-	await user.update({ loginAttempts: 0 });
+	await user.update({
+		loginAttempts: 0
+	});
 
 	// Send the response
 	return res.status(200).json({

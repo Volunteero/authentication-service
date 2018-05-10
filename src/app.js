@@ -10,8 +10,6 @@ const cors = require('cors');
 const ACL = require('acl');
 const pino = require('express-pino-logger')();
 
-mongoose.connect(process.env.MONGO_DB);
-
 const route = require('./route');
 const handleBadInputError = require('./middleware/bad-input-error-handler');
 const handleGenericError = require('./middleware/generic-error-handler');
@@ -19,9 +17,16 @@ const handleUnauthorizedError = require('./middleware/unauthorized-error-handler
 const handleApiError = require('./middleware/api-error-handler');
 const corsMiddleware = require('./middleware/cors');
 const aclInit = require('./bootstrap/acl-init');
-aclInit();
+const getAclInstance = require('./utils/get-acl-instance');
 
 const app = express();
+
+mongoose.connect(process.env.MONGO_DB, (error) => {
+	const acl = getAclInstance(mongoose.connection.db);
+	app.set('acl', acl);
+	aclInit(acl);
+});
+
 
 app.use(pino);
 app.use(

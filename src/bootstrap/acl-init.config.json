@@ -4,7 +4,9 @@
         "actions": []
     }, {
         "name": "organisations",
-        "actions": []
+        "actions": [
+            "createRole"
+        ]
     }, {
         "name": "users",
         "actions": [
@@ -22,18 +24,7 @@
             "removePermissions"
         ]
     }],
-    "roles": [{
-        "name": "roleAdmin",
-        "actions": [
-            "create",
-            "getPermissions",
-            "addPermissions",
-            "removePermissions"
-        ],
-        "resources": [
-            "roles"
-        ]
-    }],
+    "roles": [],
     "users": [{
         "username": "admin",
         "attachedRoles": ["admin"],
@@ -41,11 +32,9 @@
         "secretAccessKey": "password"
     }, {
         "username": "interal1",
-        "internal": "true",
+        "attachedRoles": ["admin"],
         "accessKey": "123",
         "secretAccessKey": "12",
-        "attachedRoles": [
-            "roleAdmin"
-        ]
+        "internal": "true"
     }]
 }

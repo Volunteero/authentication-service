@@ -1,4 +1,4 @@
-const User = require('../../../models/user');
+const Account = require('../../../models/account');
 const bcrypt = require('bcrypt');
 const ErrorResponse = require('../../../responses/error-response');
 
@@ -6,7 +6,7 @@ module.exports.register = async (req, res) => {
 	let { password, username } = req.body;
 	username = req.sanitize(username);
 	// Check if there is such a user
-	const user = await User.findOne({ username });
+	const user = await Account.findOne({ username });
 	if (user !== null) {
 		// User already exsists
 		const errorCode = 'UserExists';
@@ -15,7 +15,7 @@ module.exports.register = async (req, res) => {
 	}
 
 	// Create new user
-	let newUser = new User({
+	let newUser = new Account({
 		password: await bcrypt.hash(password, 10),
 		username,
 	});

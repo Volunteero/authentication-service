@@ -1,8 +1,6 @@
-const acl = (require('../../../utils/get-acl-instance'))();
-
 module.exports.create = (req, res) => {
 
-    acl.allow(req.body.roleName, req.body.resources, req.body.actions, (error) => {
+    req.app.get('acl').allow(req.body.roleName, req.body.resources, req.body.actions, (error) => {
 
         if (!error) {
 
@@ -22,7 +20,7 @@ module.exports.create = (req, res) => {
 module.exports.getPermissions = (req, res) => {
 
 
-    acl.whatResources(req.body.roleName, (error, permissions) => {
+    req.app.get('acl').whatResources(req.body.roleName, (error, permissions) => {
 
         if (!error) {
 
@@ -39,7 +37,7 @@ module.exports.getPermissions = (req, res) => {
 
 module.exports.addPermissions = (req, res) => {
 
-    acl.allow(req.body.roleName, req.body.resources, req.body.actions, (error) => {
+    req.app.get('acl').allow(req.body.roleName, req.body.resources, req.body.actions, (error) => {
 
         if (!error) {
 
@@ -58,7 +56,7 @@ module.exports.addPermissions = (req, res) => {
 
 module.exports.removePermissions = (req, res) => {
 
-    acl.removeAllow(req.body.roleName, req.body.resources, req.body.actions, (error) => {
+    req.app.get('acl').removeAllow(req.body.roleName, req.body.resources, req.body.actions, (error) => {
 
         if (!error) {
 

@@ -1,8 +1,6 @@
-const acl = (require('../../../utils/get-acl-instance'))();
-
 module.exports.create = (req, res) => {
 
-    acl.addUserRoles(req.body.username, [], (error) => {
+    req.app.get('acl').addUserRoles(req.body.username, [], (error) => {
 
         if (!error) {
 
@@ -19,8 +17,7 @@ module.exports.create = (req, res) => {
 
 module.exports.getRoles = (req, res) => {
 
-
-    acl.userRoles(req.body.username, (error, roles) => {
+    req.app.get('acl').userRoles(req.body.username, (error, roles) => {
 
         if (!error) {
 
@@ -37,7 +34,7 @@ module.exports.getRoles = (req, res) => {
 
 module.exports.attachRoles = (req, res) => {
 
-    acl.addUserRoles(req.body.username, req.body.roles, (error) => {
+    req.app.get('acl').addUserRoles(req.body.username, req.body.roles, (error) => {
 
         if (!error) {
 
@@ -55,7 +52,7 @@ module.exports.attachRoles = (req, res) => {
 
 module.exports.dettachRoles = (req, res) => {
 
-    acl.removeUserRoles(req.body.username, req.body.roles, (error) => {
+    req.app.get('acl').removeUserRoles(req.body.username, req.body.roles, (error) => {
 
         if (!error) {
 

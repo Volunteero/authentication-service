@@ -1,4 +1,4 @@
-const acl = (require('../../../utils/get-acl-instance'))();
+
 module.exports.access = async (req, res) => {
 
 	let userId = 'guest';
@@ -6,7 +6,7 @@ module.exports.access = async (req, res) => {
 
 		userId = req.user.username;
 	}
-	acl.isAllowed(userId, req.query.resource, req.query.action, (error, allowed) => {
+	req.app.get('acl').isAllowed(userId, req.query.resource, req.query.action, (error, allowed) => {
 
 		if (allowed) {
 
