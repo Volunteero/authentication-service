@@ -7,6 +7,31 @@
 
 ### How to use?
 
+#### Actions and resources
+
+The endpoints related to checking permissions for action on resources is limited to:
+```
+Resources:
+- organistaion:ORGANISATION_ID_HERE
+- all resources add when creating custom roles
+
+Actions:
+- addUser
+- removeUser
+- deleteOrganisation
+- createEvent
+- closeEvent
+- verifyVolunteerParticipation
+- setNumberOfEventPoints
+- leaveUserReview
+- editPage
+- createCampaign
+- verifySponsorContribution
+- setNumberOfCampaignPoints
+- sendContributionPromise
+- assumeOrgansiationRole
+```
+
 #### /auth
 For authentication </br></br>
 GET **/access** </br>
