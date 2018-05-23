@@ -4,6 +4,8 @@
 ##### ``POST http://demo8679439.mockable.io/auth/register ``
 ##### ``POST http://demo8679439.mockable.io/auth/login    ``
 
+### Heroku deployment
+##### `` https://volunteero-auth.herokuapp.com/ ``
 
 ### How to use?
 
