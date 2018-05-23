@@ -15,7 +15,7 @@ The endpoints related to checking permissions for action on resources is limited
 ```
 Resources:
 - organistaion:ORGANISATION_ID_HERE
-- all resources add when creating custom roles
+- all resources added when creating custom roles
 
 Actions:
 - addUser
