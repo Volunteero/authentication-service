@@ -13,7 +13,7 @@ module.exports = (user, payload = {}) => {
     return jwt.sign(payload,
         Buffer.from(privateKey, 'base64'), {
             algorithm: 'RS256',
-            expiresIn: '15min'
+            expiresIn: '6h'
         },
     );
 
