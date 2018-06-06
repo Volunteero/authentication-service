@@ -7,6 +7,7 @@ const userIdRequiredMiddleWare = require('../../middleware/user-id-required');
 
 const loginController = require('./login/controller');
 const accessController = require('./access/controller');
+const rolesController = require('./roles/controller');
 const assumeOrganisationRoleController = require('./assumeOrganisationRole/controller');
 const registerController = require('./register/controller');
 const refreshController = require('./refresh/controller');
@@ -24,6 +25,12 @@ module.exports = express
 			query: accessSchema
 		}),
 		accessController.access
+	)
+	.get(		
+		'/roles',
+		authRequiredMiddleWare,
+		userIdRequiredMiddleWare,
+		rolesController.getRoles
 	)
 	.get(
 		'/assumeOrganisationRole',
