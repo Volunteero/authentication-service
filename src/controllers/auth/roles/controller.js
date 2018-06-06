@@ -4,7 +4,7 @@ const ErrorResponse = require('../../../responses/error-response');
 
 module.exports.getRoles = async (req, res) => {
 
-	req.app.get('acl').userRoles(req.body.username, (error, roles) => {
+	req.app.get('acl').userRoles(req.user.username, (error, roles) => {
 
         if (!error) {
 
