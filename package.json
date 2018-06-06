@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/server.js",
+    "start": "forever ./src/server.js",
     "dev": "nodemon ./src/server.js",
     "dev:es": "nodemon ./src/server.js | pino-elasticsearch --host 192.168.99.100 --index sepr"
   },

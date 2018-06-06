@@ -10,12 +10,12 @@ module.exports.access = async (req, res) => {
 
 		if (allowed) {
 
-			res.status(200).json({
+			return res.status(200).json({
 				allowed: true,
 			});
 		} else {
 
-			res.status(401).json({
+			return res.status(401).json({
 				allowed: false,
 			});
 		}
