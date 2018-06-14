@@ -4,17 +4,50 @@ const ErrorResponse = require('../../../responses/error-response');
 
 module.exports.getRoles = async (req, res) => {
 
-	req.app.get('acl').userRoles(req.user.username, (error, roles) => {
+    let oneFailed = false;
+    req.app.get('acl').userRoles(req.user.username, (error, roles) => {
 
-        if (!error) {
+        if (error || oneFailed) {
 
-            res.status(200).json({
+            return res.status(400).json(error);
+
+        }
+
+        let enrichedRoles = [];
+        let rolesToWait = roles.length;
+        if (rolesToWait === 0) {
+
+            return res.status(200).json({
                 username: req.body.username,
                 roles
             });
-        } else {
-
-            res.status(400).json(error);
         }
+        console.log(roles);
+
+        roles.forEach(role => {
+
+            req.app.get('acl').whatResources(role, (error, permissions) => {
+
+                console.log(permissions);
+
+                if (error || oneFailed) {
+
+                    oneFailed = true;
+                    return res.status(400).json(error);
+                }
+                enrichedRoles.push({
+                    role,
+                    permissions
+                });
+                if (rolesToWait === enrichedRoles.length) {
+
+                    return res.status(200).json({
+                        username: req.body.username,
+                        roles: enrichedRoles
+                    });
+                }
+            });
+        });
+
     });
 };
