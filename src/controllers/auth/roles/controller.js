@@ -26,6 +26,7 @@ module.exports.getRoles = async (req, res) => {
 
         roles.forEach(role => {
 
+            let [entityType, entityIdentifier, roleName] = role.split(':');
             req.app.get('acl').whatResources(role, (error, permissions) => {
 
                 console.log(permissions);
@@ -36,8 +37,11 @@ module.exports.getRoles = async (req, res) => {
                     return res.status(400).json(error);
                 }
                 enrichedRoles.push({
-                    role,
-                    permissions
+                    entityType,
+                    entityIdentifier, 
+                    roleName,
+                    arn: role,
+                    permissions: permissions[`${entityType}:${entityIdentifier}`]
                 });
                 if (rolesToWait === enrichedRoles.length) {
 

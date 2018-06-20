@@ -7,7 +7,6 @@ const cookieParser = require('cookie-parser');
 const expressSanitizer = require('express-sanitizer');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const ACL = require('acl');
 const pino = require('express-pino-logger')();
 
 const route = require('./route');
