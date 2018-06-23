@@ -35,5 +35,8 @@
     "node-fetch": "^2.1.2",
     "pino-elasticsearch": "^2.2.1",
     "pino-tee": "^0.2.0"
+  },
+  "devDependencies": {
+    "uid": "0.0.2"
   }
 }
