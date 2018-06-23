@@ -20,7 +20,8 @@ describe.only('User Service Testing', () => {
 
   it('Should create a user document with the specified username', () => {
     const us = new UserService();
-    return us.createUserDocument(username).then((result) => {
+    return us.createUserDocument(username, username).then((result) => {
+      console.log(result.json());
       assert.equal(result.status, 201);
     });
   });

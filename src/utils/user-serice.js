@@ -7,8 +7,9 @@ module.exports = class UserService {
     this.baseUrl = 'https://volunteero-altar.herokuapp.com/altar/v1/users';
   }
 
-  createUserDocument(username) {
+  createUserDocument(user_id, username) {
     const body = {
+      user_id,
       username,
       points: 0
     };

@@ -25,7 +25,8 @@ module.exports.register = async (req, res) => {
   const result = await newUser.save();
 
   // Tell the user service to create a new user entry
-  const serviceJob = (new UserService()).createUserDocument(username);
+  const us = new UserService();
+  const serviceJob = us.createUserDocument(result.id || 'n/a', username);
 
   // Send the response
   res.status(201).json({
